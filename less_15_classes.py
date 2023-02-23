@@ -30,6 +30,7 @@ class Dog:
     def human_age(self):
         return f' if this dog was a human, it would be {self.dog_age * self.age_factor} years old'
 
+
 """Task 3
 
 TV controller
@@ -49,13 +50,60 @@ is_exist(N/'name') - gets 1 argument - the number N or the string 'name' and ret
 The default channel turned on before all commands is №1."""
 
 
-class TVcontroler:
-    list_of_channels = ['BBC', 'National geographic', 'TV1000', 'Discovery', 'FOX', 'Cartoon Network']
-    def __init__(self):
-        self.cannel
+class TVController:
+    lIST_OF_CHANNELS = ['BBC', 'National geographic', 'TV1000', 'Discovery', 'FOX', 'Cartoon Network']
+    INDEX = 0
 
-    def first_chanel(self):
+    # CURRENT = lIST_OF_CHANNELS[INDEX]
 
+    def current(self):
+        result = self.lIST_OF_CHANNELS[self.INDEX]
+        return result
+
+    def first_channel(self):
+        self.INDEX = 0
+        return self.current()
+
+    def last_channel(self):
+        self.INDEX = len(self.lIST_OF_CHANNELS) - 1
+        return self.current()
+
+    def turn_channel(self, num: int):
+        if num in range(1, len(self.lIST_OF_CHANNELS) + 1):
+            self.INDEX = num - 1
+            return self.current()
+        else:
+            return f'No such channel as: {num}'
+
+    def next_channel(self):
+        try:
+            self.INDEX += 1
+            return self.current()
+        except IndexError:
+            return self.first_channel()
+
+    def previous_channel(self):
+        try:
+            self.INDEX -= 1
+            return self.current()
+        except IndexError:
+            return self.last_channel()
+
+    def is_exist(self, arg):
+        if isinstance(arg, int):
+            if arg in range(1, len(self.lIST_OF_CHANNELS) + 1):
+                return "Yes"
+            else:
+                return "No"
+
+        elif isinstance(arg, str):
+            if arg in self.lIST_OF_CHANNELS:
+                return "Yes"
+            else:
+                return "No"
+
+        else:
+            return "No"
 
 
 def main():
@@ -64,6 +112,16 @@ def main():
     #
     # flafy = Dog(7)
     # print(flafy.human_age())
+
+    controller = TVController()
+    # print(controller.first_channel())
+    # print(controller.previous_channel())
+    # print(controller.previous_channel())
+    # print(controller.previous_channel())
+    # print(controller.previous_channel())
+    # print(controller.previous_channel())
+    # print(controller.previous_channel())
+    # print(controller.previous_channel())
 
 
 if __name__ == '__main__':
