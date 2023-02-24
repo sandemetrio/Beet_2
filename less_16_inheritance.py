@@ -73,6 +73,28 @@ class Teacher(Person):
         print(f'Give me my {self.salary}')
 
 
+"""Task 2 Mathematician
+
+Implement a class Mathematician which is a helper class for doing math operations on lists
+The class doesn't take any attributes and only has methods:
+square_nums (takes a list of integers and returns the list of squares)
+remove_positives (takes a list of integers and returns it without positive numbers
+filter_leaps (takes a list of dates (integers) and removes those that are not 'leap years'"""
+
+
+class Mathematician:
+    def square_nums(self, list_: list):
+        return [i**2 for i in list_]
+
+    def remove_positives(self, list_: list):
+        return [i <= 0 for i in list_]
+
+    def filter_leaps(self, list_: list):
+        return [i % 4 or i % 400 for i in list_]
+
+
+
+
 def main():
 
     student_1 = Student('Ivan', 'Ivanenko', 19, 11, 'Football')
