@@ -1,4 +1,5 @@
 from pprint import pprint
+
 """Task 1 School
 
 Make a class structure in python representing people at school. Make a base class called Person, a class called Student,
@@ -115,7 +116,7 @@ sell_product(product_name, amount) - removes a particular amount of products fro
 case raises an error. It also increments income if the sell_product method succeeds.
 get_income() - returns amount of many earned by ProductStore instance.
 get_all_products() - returns information about all available products in the store.
-get_product_info(product_name) - returns a tuple with product name and amount of items in the store."""
+get_product_info(product_name) - returns a tuple with product name and amount of prods in the store."""
 
 
 class Product:
@@ -133,13 +134,7 @@ class ProductStore:
         self.store_name = store_name
         self.product = Product
 
-    def add(self, product: Product, amount: int):
-        for item in self.STORE:
-            if item['name'] == product.name:
-                item['amount'] += amount
-                print(f'{amount} {product.name} added, total amount: {item["amount"]}')
-                return True
-
+    def set_product(self, product: Product, amount: int):
         prod = {
             "type": product.type,
             "name": product.name,
@@ -147,47 +142,44 @@ class ProductStore:
             "amount": amount
         }
         self.STORE.append(prod)
-        print(f'New product {product.name} added, total amount: {amount}')
+
+    def get_product(self, identifier: str, identifier_type='name'):
+        for prod in self.STORE:
+            if prod[identifier_type] == identifier:
+                return prod
+            else:
+                print(f'No products such as {identifier}')
+                return False
+
+    def add(self, product: Product, amount: int):
+        if prod := self.get_product(product.name):
+            prod['amount'] += amount
+            print(f'{amount} {product.name} added, total amount: {prod["amount"]}')
+            return True
+        else:
+            self.set_product(product, amount)
+            print(f'New product {product.name} added, total amount: {amount}')
 
     def set_discount(self, identifier, percent, identifier_type='name'):
-        for item in self.STORE:
-            if item[identifier_type] == identifier:
-                print(item['price'])
-                item['price'] = round(item['price'] * (100 - percent)/100, 2)
-                print(f'{percent}% discount set to {item["name"]}, now it"s only {item["price"]}')
+        if prod := self.get_product(identifier, identifier_type):
+            prod['price'] = round(prod['price'] * (100 - percent) / 100, 2)
+            print(f'{percent}% discount set to {prod["name"]}, now it"s only {prod["price"]}')
 
     def sell_products(self, product_name, amount):
-        for item in self.STORE:
-            if item['name'] == product_name:
-                if item['amount'] >= amount:
-                    item['amount'] -= amount
-                    self.INCOME = item['price'] * amount
-                    return True
-                else:
-                    print(f'Only {item["amount"]} {item["name"]} left')
-                    return False
-
-        print(f'No products such as {product_name}')
-        return False
+        if prod := self.get_product(product_name):
+            if prod['amount'] >= amount:
+                prod['amount'] -= amount
+                self.INCOME = prod['price'] * amount
+                return True
+            else:
+                print(f'Only {prod["amount"]} {prod["name"]} left')
+                return False
 
     def get_income(self):
         return self.INCOME
 
     def get_all_products(self):
         pprint(self.STORE)
-
-    def get_product_info(self, identifier, identifier_type='name'):
-        for item in self.STORE:
-            if item[identifier_type] == identifier:
-                pprint(item)
-                return item
-        print(f'No products such as {identifier}')
-        return False
-
-
-
-
-
 
 
 def main():
@@ -220,9 +212,6 @@ def main():
     # print(silpo.get_income())
     # silpo.get_all_products()
     # silpo.get_product_info('Yogurt')
-
-
-
 
 
 if __name__ == '__main__':
