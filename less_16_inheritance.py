@@ -87,10 +87,10 @@ class Mathematician:
         return [i**2 for i in list_]
 
     def remove_positives(self, list_: list):
-        return [i <= 0 for i in list_]
+        return [i for i in list_ if i <= 0]
 
     def filter_leaps(self, list_: list):
-        return [i % 4 or i % 400 for i in list_]
+        return [i for i in list_ if i % 4 == 0 and not i % 100 == 0 or i % 400 == 0]
 
 
 
@@ -100,8 +100,18 @@ def main():
     student_1 = Student('Ivan', 'Ivanenko', 19, 11, 'Football')
     teacher_1 = Teacher('Petro', 'Petrenko', 48)
 
-    print(student_1)
-    print(teacher_1)
+    # print(student_1)
+    # print(teacher_1)
+    m = Mathematician()
+
+    assert m.square_nums([7, 11, 5, 4]) == [49, 121, 25, 16]
+
+    assert m.remove_positives([26, -11, -8, 13, -90]) == [-11, -8, -90]
+
+    assert m.filter_leaps([2001, 1884, 1995, 2003, 2020, 1700, 1800, 1900, 2100, 2200, 2300, 400]) == [1884, 2020, 400]
+
+
+
 
 
 if __name__ == '__main__':
