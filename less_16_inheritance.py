@@ -139,37 +139,36 @@ class ProductStore:
             "type": product.type,
             "name": product.name,
             "price": round(product.price * 1.3, 2),
-            "amount": amount
+            "amount": amount,
+            "discount": 0
         }
         self.STORE.append(prod)
 
     def get_product(self, identifier: str, identifier_type='name'):
-        for prod in self.STORE:
-            if prod[identifier_type] == identifier:
-                return prod
-            else:
-                print(f'No products such as {identifier}')
-                return False
+        for item in self.STORE:
+            if item[identifier_type] == identifier:
+                return item
+        print(f'No products such as {identifier} yet')
+        return False
 
     def add(self, product: Product, amount: int):
         if prod := self.get_product(product.name):
             prod['amount'] += amount
             print(f'{amount} {product.name} added, total amount: {prod["amount"]}')
-            return True
         else:
             self.set_product(product, amount)
             print(f'New product {product.name} added, total amount: {amount}')
 
     def set_discount(self, identifier, percent, identifier_type='name'):
         if prod := self.get_product(identifier, identifier_type):
-            prod['price'] = round(prod['price'] * (100 - percent) / 100, 2)
+            prod['discount'] = percent
             print(f'{percent}% discount set to {prod["name"]}, now it"s only {prod["price"]}')
 
     def sell_products(self, product_name, amount):
         if prod := self.get_product(product_name):
             if prod['amount'] >= amount:
                 prod['amount'] -= amount
-                self.INCOME = prod['price'] * amount
+                self.INCOME = round(prod['price'] * (100 - prod['discount']) / 100 * amount, 2)
                 return True
             else:
                 print(f'Only {prod["amount"]} {prod["name"]} left')
@@ -199,18 +198,21 @@ def main():
     silpo = ProductStore('Сільпо')
 
     # silpo.add(Product('Diary', 'Milk', 32.49), 20)
-    # silpo.add(Product('Bread', 'Lavash', 20.34), 10)
-    # silpo.add(Product('Bread', 'Toast', 15.59), 50)
-    # silpo.add(Product('Diary', 'Yogurt', 34.54), 20)
-    # silpo.add(Product('Diary', 'Ayran', 54.40), 5)
-    # silpo.add(Product('Diary', 'Ayran', 54.40), 5)
-    # silpo.set_discount('Lavash', 30)
+    silpo.add(Product('Bread', 'Lavash', 20.34), 10)
+    silpo.add(Product('Bread', 'Toast', 15.59), 50)
+    silpo.add(Product('Diary', 'Yogurt', 34.54), 20)
+    silpo.add(Product('Diary', 'Yogurt', 34.54), 20)
+    silpo.add(Product('Diary', 'Ayran', 54.40), 5)
+    silpo.add(Product('Diary', 'Ayran', 54.40), 5)
+    # print(silpo.STORE)
+    silpo.set_discount('Lavash', 30)
 
-    # silpo.sell_products('Toast', 10)
-    # silpo.sell_products('Toast', 10)
+    silpo.sell_products('Toast', 10)
+    silpo.sell_products('Toast', 40)
+    silpo.sell_products('Toast', 1)
 
-    # print(silpo.get_income())
-    # silpo.get_all_products()
+    print(silpo.get_income())
+    silpo.get_all_products()
     # silpo.get_product_info('Yogurt')
 
 
