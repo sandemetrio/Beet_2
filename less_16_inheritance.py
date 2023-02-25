@@ -180,6 +180,26 @@ class ProductStore:
     def get_all_products(self):
         pprint(self.STORE)
 
+"""Custom exception
+
+Create your custom exception named `CustomException`, you can inherit from base Exception class,
+but extend its functionality to log every error message to a file named `logs.txt`. Tips: Use __init__ 
+method to extend functionality for saving messages to file
+
+class CustomException(Exception):
+
+:"""
+
+
+class CustomException(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+        with open('logs.txt', "w") as file:
+            file.write(msg)
+
+
+
+
 
 def main():
     student_1 = Student('Ivan', 'Ivanenko', 19, 11, 'Football')
@@ -195,25 +215,26 @@ def main():
     #
     # assert m.filter_leaps([2001, 1884, 1995, 2003, 2020, 1700, 1800, 1900, 2100, 2200, 2300, 400]) == [1884, 2020, 400]
 
-    silpo = ProductStore('Сільпо')
-
-    # silpo.add(Product('Diary', 'Milk', 32.49), 20)
-    silpo.add(Product('Bread', 'Lavash', 20.34), 10)
-    silpo.add(Product('Bread', 'Toast', 15.59), 50)
-    silpo.add(Product('Diary', 'Yogurt', 34.54), 20)
-    silpo.add(Product('Diary', 'Yogurt', 34.54), 20)
-    silpo.add(Product('Diary', 'Ayran', 54.40), 5)
-    silpo.add(Product('Diary', 'Ayran', 54.40), 5)
-    # print(silpo.STORE)
-    silpo.set_discount('Lavash', 30)
-
-    silpo.sell_products('Toast', 10)
-    silpo.sell_products('Toast', 40)
-    silpo.sell_products('Toast', 1)
-
-    print(silpo.get_income())
-    silpo.get_all_products()
+    # silpo = ProductStore('Сільпо')
+    #
+    # # silpo.add(Product('Diary', 'Milk', 32.49), 20)
+    # silpo.add(Product('Bread', 'Lavash', 20.34), 10)
+    # silpo.add(Product('Bread', 'Toast', 15.59), 50)
+    # silpo.add(Product('Diary', 'Yogurt', 34.54), 20)
+    # silpo.add(Product('Diary', 'Yogurt', 34.54), 20)
+    # silpo.add(Product('Diary', 'Ayran', 54.40), 5)
+    # silpo.add(Product('Diary', 'Ayran', 54.40), 5)
+    # # print(silpo.STORE)
+    # silpo.set_discount('Lavash', 30)
+    #
+    # silpo.sell_products('Toast', 10)
+    # silpo.sell_products('Toast', 40)
+    # silpo.sell_products('Toast', 1)
+    #
+    # print(silpo.get_income())
+    # silpo.get_all_products()
     # silpo.get_product_info('Yogurt')
+    raise CustomException('do smth here')
 
 
 if __name__ == '__main__':
