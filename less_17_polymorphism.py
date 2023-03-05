@@ -130,6 +130,123 @@ class Library:
         return res
 
 
+"""Task 3 Fraction
+
+Створіть клас Fraction, який буде представляти всю базову арифметичну логіку для дробів (+, -, /, *) з належною 
+перевіркою й обробкою помилок. Потрібно додати магічні методи для математичних операцій та операції порівняння між
+об'єктами класу Fraction"""
+
+
+class Fraction:
+    def __init__(self, numerator: int, denominator: int):
+        self.numerator = numerator
+        self.denominator = denominator
+        if self.denominator == 0:
+            raise ZeroDivisionError
+
+    def __add__(self, other):
+        if self.denominator == other.denominator:
+            return print(f'{self.numerator + other.numerator}\n'
+                         f'{"_" * 3}\n'
+                         f'{self.denominator}')
+
+        return print(f'{self.numerator * other.denominator + other.numerator * self.denominator}\n'
+                     f'{"_" * 3}\n'
+                     f'{self.denominator * other.denominator}')
+
+    def __sub__(self, other):
+        if self.denominator == other.denominator:
+            return print(f'{self.numerator - other.numerator}\n'
+                         f'{"_" * 3}\n'
+                         f'{self.denominator}')
+        return print(f'{self.numerator * other.denominator - other.numerator * self.denominator}\n'
+                     f'{"_" * 3}\n'
+                     f'{self.denominator * other.denominator}')
+
+    def __mul__(self, other):
+
+        return print(f'{self.numerator * other.numerator}\n'
+                     f'{"_" * 3}\n'
+                     f'{self.denominator * other.denominator}')
+
+    def __truediv__(self, other):
+        return print(f'{self.numerator * other.denominator}\n'
+                     f'{"_" * 3}\n'
+                     f'{self.denominator * other.numerator}')
+
+    def __le__(self, other):
+        if self.denominator == other.denominator:
+            if self.numerator <= other.numerator:
+                return True
+            else:
+                return False
+        else:
+            if self.numerator * other.denominator <= other.numerator * self.denominator:
+                return True
+            else:
+                return False
+
+    def __lt__(self, other):
+        if self.denominator == other.denominator:
+            if self.numerator < other.numerator:
+                return True
+            else:
+                return False
+        else:
+            if self.numerator * other.denominator < other.numerator * self.denominator:
+                return True
+            else:
+                return False
+
+    def __eq__(self, other):
+        if self.denominator == other.denominator:
+            if self.numerator == other.numerator:
+                return True
+            else:
+                return False
+        else:
+            if self.numerator * other.denominator == other.numerator * self.denominator:
+                return True
+            else:
+                return False
+
+    def __ne__(self, other):
+        if self.denominator == other.denominator:
+            if self.numerator != other.numerator:
+                return True
+            else:
+                return False
+        else:
+            if self.numerator * other.denominator != other.numerator * self.denominator:
+                return True
+            else:
+                return False
+
+    def __gt__(self, other):
+        if self.denominator == other.denominator:
+            if self.numerator > other.numerator:
+                return True
+            else:
+                return False
+        else:
+            if self.numerator * other.denominator > other.numerator * self.denominator:
+                return True
+            else:
+                return False
+
+    def __ge__(self, other):
+        if self.denominator == other.denominator:
+            if self.numerator >= other.numerator:
+                return True
+            else:
+                return False
+        else:
+            if self.numerator * other.denominator >= other.numerator * self.denominator:
+                return True
+            else:
+                return False
+
+
 def main():
     # rowling = Author("Rowling Joanne", 'United Kingdom', 1965, [
     #     "Harry Potter and the Philosopher's Stone",
@@ -174,6 +291,9 @@ def main():
     # # pprint(lib.group_by_author(rowling))
     # pprint(lib.group_by_year(2000))
 
+    # x = Fraction(5, 4)
+    # y = Fraction(2, 6)
+    # x * y
 
 
 if __name__ == '__main__':
