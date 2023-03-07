@@ -263,12 +263,12 @@ def main():
     #     "The Minds of Billy Milligan"
     # ])
     #
-    # king = Author("King Stephen", "USA", 1947, [
-    #     "Carrie",
-    #     "It",
-    #     "The Green Mile"
-    #     "The Stand"
-    # ])
+    king = Author("King Stephen", "USA", 1947, [
+        "Carrie",
+        "It",
+        "The Green Mile"
+        "The Stand"
+    ])
     # lib = Library('Vernadskogo')
     #
     # test = Book("Harry Potter and the Philosopher's Stone", 1997, rowling)
