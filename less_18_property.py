@@ -46,6 +46,12 @@ class Worker:
         self.company = company
         self.boss = boss
 
+    def __str__(self):
+        return f' ID: {self.id}\n NAME: {self.name}\n COMPANY: {self.company}\n'
+
+    def __repr__(self):
+        return f' ID: {self.id}\n NAME: {self.name}\n COMPANY: {self.company}\n'
+
     @property
     def get_to_work(self):
         return self.boss.workers
@@ -55,15 +61,89 @@ class Worker:
         self.boss.workers.append(worker)
 
 
+'''Task 3
+
+Write a class TypeDecorators which has several methods for converting results of functions
+to a specified type(if it's possible):
+methods:
+
+to_int
+to_str
+to_bool
+to_float
+
+Don't forget to use @wraps
+
+
+
+
+'''
+
+
+class TypeDecorators:
+    @staticmethod
+    def to_int(function):
+        def wrapper(value):
+            try:
+                return int(value)
+            except ValueError:
+                print(f'Cant convert it to integer: "{value}"')
+
+        return wrapper
+
+    @staticmethod
+    def to_str(function):
+        def wrapper(value):
+            try:
+                return str(value)
+            except ValueError:
+                print(f'Cant convert it to string: "{value}"')
+
+        return wrapper
+
+    @staticmethod
+    def to_bool(function):
+        def wrapper(value):
+            try:
+                return bool(value)
+            except ValueError:
+                print(f'Cant convert it to bool: "{value}"')
+
+        return wrapper
+
+    @staticmethod
+    def to_float(function):
+        def wrapper(value):
+            try:
+                return float(value)
+            except ValueError:
+                print(f'Cant convert it to float: "{value}"')
+        return wrapper
+
+
+@TypeDecorators.to_int
+def do_nothing(string: str):
+    return string
+
+
+@TypeDecorators.to_bool
+def do_something(string: str):
+    return string
 
 
 def main():
     user_1 = EMail("test.first@analytics.com")
+    #
+    # boss = Boss(1, 'Bill', 'Microsoft')
+    # worker = Worker(112, 'Kelvin', 'Microsoft', boss)
+    # # boss.get_to_work = Worker(118, 'Gelvin', 'Microsoft', boss)
+    # # print(boss.get_to_work)
+    # worker.get_to_work = Worker(122, 'Melvin', 'Microsoft', boss)
+    # worker.get_to_work = Worker(118, 'Gelvin', 'Microsoft', boss)
+    # print((worker.get_to_work))
+    assert do_nothing('25') == 25
 
-    boss = Boss(1, 'Bill', 'Microsoft')
-    # print(boss.get_to_work)
-    boss.get_to_work = Worker(112, 'Kelvin', 'Microsoft', boss)
-    print(boss.get_to_work)
+    assert do_something('True') is True
 
 
 if __name__ == '__main__':
