@@ -51,6 +51,37 @@ Create your own implementation of an iterable, which could be used inside for-in
 add logic for retrieving elements using square brackets syntax."""
 
 
+class Itertest():
+    def __init__(self, data):
+        self.data = data
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        for el in self.data:
+            return el
+
+    def __getitem__(self, key):
+        return self.data[key]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class MyIternacci:
     def __init__(self, num, start_1=0, start_2=1):
         if num < 1:
