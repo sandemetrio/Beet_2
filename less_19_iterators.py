@@ -67,21 +67,6 @@ class Itertest():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class MyIternacci:
     def __init__(self, num, start_1=0, start_2=1):
         if num < 1:

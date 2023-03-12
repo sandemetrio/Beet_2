@@ -108,12 +108,13 @@ class Library:
     def add_new_book(self, book_name: str, year: int, author: Author):
         for book in self.books:
             if book_name == book.name:
-                return print('This book is already added')
+                return 'This book is already added'
 
         new_book = Book(book_name, year, author)
         self.books.append(new_book)
         if author not in self.authors:
             self.authors.append(author)
+        return new_book
 
     def group_by_author(self, author: Author):
         res = []
